@@ -53,3 +53,22 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+//get request
+axios.get( 'https://api.github.com/users/kkdev211')
+  .then(response => {
+    console.log(response);
+  })
+
+  const userCard =(imgUrl) => {
+    const newCard = document.createElement('div');
+    const userName = document.createElement('h3');
+    const gitHubName = document.createElement('p');
+    const location = document.createElement('p');
+    const profile = document.createElement('p');
+    const profileAddress = document.createElement('a');
+    const followers = document.createElement('p');
+    const following = document.createElement('p');
+    const bio = document.createElement('p');
+
+  }

@@ -60,7 +60,10 @@ axios.get( 'https://api.github.com/users/kkdev211')
     console.log(response);
   })
 
+  //step 3
   const userCard =(imgUrl) => {
+    const card = document.createElement('div');
+    const newImg = document.createElement('img');
     const newCard = document.createElement('div');
     const userName = document.createElement('h3');
     const gitHubName = document.createElement('p');
@@ -71,4 +74,40 @@ axios.get( 'https://api.github.com/users/kkdev211')
     const following = document.createElement('p');
     const bio = document.createElement('p');
 
+    
+    newImg.src = imgUrl
+    newCard.textContent = "card-info";
+    userName.textContent ="Name";
+    gitHubName.textContent = "Username";
+
+    card.classList.add('card');
+    newImg.classList.add('img');
+    newCard.classList.add('card')
+    userName.classList.add('name');
+    gitHubName.classList.add('username');
+    profile.classList.add('p');
+    //profileAddress.classList.add('p');
+    followers.classList.add('p');
+    following.classList.add('p');
+    bio.classList.add('p');
+
+    card.appendChild(newImg)
+    card.appendChild(newCard)
+    newCard.appendChild(userName)
+    newCard.appendChild(gitHubName)
+    newCard.appendChild(location)
+    newCard.appendChild(profile)
+    newCard.appendChild(followers)
+    newCard.appendChild(following)
+    newCard.appendChild(bio)
+
+    return card
+
   }
+
+  const entryPointinHTML = document.querySelector('.cards')
+
+  //step 4- pass data from GitHub, creat new component and add as child of .cards
+
+
+  //step 5- follow https://api.github.com/users/<Your github name>/followers , add 5 users adding it to array, iterate over and add cards and add card to the DOM

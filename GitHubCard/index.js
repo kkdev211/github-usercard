@@ -24,13 +24,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [
-  "tetondan",
-  "dustinmyers",
-  "justsml",
-  "luishrd",
-  "bigknell",
-];
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -59,22 +53,19 @@ const followersArray = [
   luishrd
   bigknell
 */
+//followers
 
-//my GitHub Profile
-const axiosPromise =
-  axios
-    .get('https://api.github.com/users/kkdev211')
-    .then(response => {
-      // console.log(response);
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",
+];
 
-      const user = response.data;
-      console.log(user);
-      entryPointInHTML.appendChild(createUserCard(user));
-  })
-
-//followers profiles
-followersArray.forEach(followerName => {
-  const url = `https://api.github.com/users/${followerName}`
+//generic add user card
+function addUser(githubUserName) {
+  const url = `https://api.github.com/users/${githubUserName}`
   axios
     .get(url)
     .then(response => {
@@ -84,6 +75,14 @@ followersArray.forEach(followerName => {
       console.log(user);
       entryPointInHTML.appendChild(createUserCard(user));
   })
+
+}
+//my GitHub Profile
+const me = addUser('kkdev211')
+  
+//followers profiles
+followersArray.forEach(followerName => {
+  addUser(followerName)
 })
 
   //test card

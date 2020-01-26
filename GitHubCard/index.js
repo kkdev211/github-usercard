@@ -60,13 +60,28 @@ axios.get( 'https://api.github.com/users/kkdev211')
     console.log(response);
   })
 
+  //test card
+
+  const userObj = {
+
+    imgUrl: "https://avatars0.githubusercontent.com/u/56946693?v=4",
+    userName: "kkdev211",
+    name: "KK",
+    location: "Orlando, FL",
+    profile:"https://api.github.com/users/kkdev211",
+    followers: 5,
+    following: 2,
+    bio:"Full Stack Web Dev Student",
+    
+  }
+
   //step 3
-  const userCard =(imgUrl) => {
+ function createUserCard(user) {
     const card = document.createElement('div');
     const newImg = document.createElement('img');
     const newCard = document.createElement('div');
-    const userName = document.createElement('h3');
-    const gitHubName = document.createElement('p');
+    const name = document.createElement('h3');
+    const userName = document.createElement('p');
     const location = document.createElement('p');
     const profile = document.createElement('p');
     const profileAddress = document.createElement('a');
@@ -74,29 +89,28 @@ axios.get( 'https://api.github.com/users/kkdev211')
     const following = document.createElement('p');
     const bio = document.createElement('p');
 
-    
-    newImg.src = imgUrl
-    newCard.textContent = "card-info";
-    userName.textContent ="Name";
-    gitHubName.textContent = "Username";
+    //add content
+    name.textContent = user.name;
+    userName.textContent = user.userName;
+    location.textContent = `Location: ${user.location}`;
+    profile.textContent = 'Profile: ';
+    followers.textContent = `Followers: ${user.followers}`;
+    following.textContent = `Following: ${user.following}`;
+    bio.textContent = `Bio: ${user.bio}`;
+    newImg.src = user.imgUrl;
 
     card.classList.add('card');
-    newImg.classList.add('img');
-    newCard.classList.add('card')
-    userName.classList.add('name');
-    gitHubName.classList.add('username');
-    profile.classList.add('p');
-    //profileAddress.classList.add('p');
-    followers.classList.add('p');
-    following.classList.add('p');
-    bio.classList.add('p');
-
+    newCard.classList.add('card-info')
+    name.classList.add('name');
+    userName.classList.add('username');
+    
     card.appendChild(newImg)
     card.appendChild(newCard)
+    newCard.appendChild(name)
     newCard.appendChild(userName)
-    newCard.appendChild(gitHubName)
     newCard.appendChild(location)
     newCard.appendChild(profile)
+    profile.appendChild(profileAddress)
     newCard.appendChild(followers)
     newCard.appendChild(following)
     newCard.appendChild(bio)
@@ -105,7 +119,10 @@ axios.get( 'https://api.github.com/users/kkdev211')
 
   }
 
-  const entryPointinHTML = document.querySelector('.cards')
+  const entryPointInHTML = document.querySelector('.cards')
+
+  entryPointInHTML.appendChild(createUserCard(userObj));
+
 
   //step 4- pass data from GitHub, creat new component and add as child of .cards
 

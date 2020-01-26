@@ -24,7 +24,13 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",
+];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -54,26 +60,46 @@ const followersArray = [];
   bigknell
 */
 
-//get request
-axios.get( 'https://api.github.com/users/kkdev211')
-  .then(response => {
-    console.log(response);
+//my GitHub Profile
+const axiosPromise =
+  axios
+    .get('https://api.github.com/users/kkdev211')
+    .then(response => {
+      // console.log(response);
+
+      const user = response.data;
+      console.log(user);
+      entryPointInHTML.appendChild(createUserCard(user));
   })
+
+//followers profiles
+followersArray.forEach(followerName => {
+  const url = `https://api.github.com/users/${followerName}`
+  axios
+    .get(url)
+    .then(response => {
+      // console.log(response);
+
+      const user = response.data;
+      console.log(user);
+      entryPointInHTML.appendChild(createUserCard(user));
+  })
+})
 
   //test card
 
-  const userObj = {
+  // const userObj = {
 
-    imgUrl: "https://avatars0.githubusercontent.com/u/56946693?v=4",
-    userName: "kkdev211",
-    name: "KK",
-    location: "Orlando, FL",
-    profile:"https://api.github.com/users/kkdev211",
-    followers: 5,
-    following: 2,
-    bio:"Full Stack Web Dev Student",
+  //   avatar_url: "https://avatars0.githubusercontent.com/u/56946693?v=4",
+  //   login: "kkdev211",
+  //   name: "KK",
+  //   location: "Orlando, FL",
+  //   profile:"https://api.github.com/users/kkdev211",
+  //   followers: 5,
+  //   following: 2,
+  //   bio:"Full Stack Web Dev Student",
     
-  }
+  // }
 
   //step 3
  function createUserCard(user) {
@@ -91,13 +117,13 @@ axios.get( 'https://api.github.com/users/kkdev211')
 
     //add content
     name.textContent = user.name;
-    userName.textContent = user.userName;
+    userName.textContent = user.login;
     location.textContent = `Location: ${user.location}`;
     profile.textContent = 'Profile: ';
     followers.textContent = `Followers: ${user.followers}`;
     following.textContent = `Following: ${user.following}`;
     bio.textContent = `Bio: ${user.bio}`;
-    newImg.src = user.imgUrl;
+    newImg.src = user.avatar_url;
 
     card.classList.add('card');
     newCard.classList.add('card-info')
@@ -120,11 +146,3 @@ axios.get( 'https://api.github.com/users/kkdev211')
   }
 
   const entryPointInHTML = document.querySelector('.cards')
-
-  entryPointInHTML.appendChild(createUserCard(userObj));
-
-
-  //step 4- pass data from GitHub, creat new component and add as child of .cards
-
-
-  //step 5- follow https://api.github.com/users/<Your github name>/followers , add 5 users adding it to array, iterate over and add cards and add card to the DOM

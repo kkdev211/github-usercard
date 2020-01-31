@@ -24,7 +24,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -53,3 +53,95 @@ const followersArray = [];
   luishrd
   bigknell
 */
+//followers
+
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell",
+];
+
+//generic add user card
+function addUser(githubUserName) {
+  const url = `https://api.github.com/users/${githubUserName}`
+  axios
+    .get(url)
+    .then(response => {
+      // console.log(response);
+
+      const user = response.data;
+      console.log(user);
+      entryPointInHTML.appendChild(createUserCard(user));
+  })
+
+}
+//my GitHub Profile
+const me = addUser('kkdev211')
+  
+//followers profiles
+followersArray.forEach(followerName => {
+  addUser(followerName)
+})
+
+  //test card
+
+  // const userObj = {
+
+  //   avatar_url: "https://avatars0.githubusercontent.com/u/56946693?v=4",
+  //   login: "kkdev211",
+  //   name: "KK",
+  //   location: "Orlando, FL",
+  //   profile:"https://api.github.com/users/kkdev211",
+  //   followers: 5,
+  //   following: 2,
+  //   bio:"Full Stack Web Dev Student",
+    
+  // }
+
+  //step 3
+ function createUserCard(user) {
+    const card = document.createElement('div');
+    const newImg = document.createElement('img');
+    const newCard = document.createElement('div');
+    const name = document.createElement('h3');
+    const userName = document.createElement('p');
+    const location = document.createElement('p');
+    const profile = document.createElement('p');
+    const profileAddress = document.createElement('a');
+    const followers = document.createElement('p');
+    const following = document.createElement('p');
+    const bio = document.createElement('p');
+
+    //add content
+    name.textContent = user.name;
+    userName.textContent = user.login;
+    location.textContent = `Location: ${user.location}`;
+    profile.textContent = 'Profile: ';
+    followers.textContent = `Followers: ${user.followers}`;
+    following.textContent = `Following: ${user.following}`;
+    bio.textContent = `Bio: ${user.bio}`;
+    newImg.src = user.avatar_url;
+
+    card.classList.add('card');
+    newCard.classList.add('card-info')
+    name.classList.add('name');
+    userName.classList.add('username');
+    
+    card.appendChild(newImg)
+    card.appendChild(newCard)
+    newCard.appendChild(name)
+    newCard.appendChild(userName)
+    newCard.appendChild(location)
+    newCard.appendChild(profile)
+    profile.appendChild(profileAddress)
+    newCard.appendChild(followers)
+    newCard.appendChild(following)
+    newCard.appendChild(bio)
+
+    return card
+
+  }
+
+  const entryPointInHTML = document.querySelector('.cards')
